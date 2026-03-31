@@ -110,6 +110,9 @@ This file is the front-end built with **Streamlit**:
 - Do not trust urgent or reward-based messages
 - Use only trusted UPI apps like BHIM, GPay, PhonePe, or Paytm
 
+# OUTPUT
+<img width="1905" height="821" alt="image" src="https://github.com/user-attachments/assets/9e892cdb-efe7-4a4b-8f4d-65c0e18c96eb" />
+
 ---
 
 ## Report Fraud

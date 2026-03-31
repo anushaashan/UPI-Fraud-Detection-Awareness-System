@@ -16,7 +16,7 @@ UPI fraud is one of the most common cybercrimes in India. This project aims to c
 
 ---
 
-## 🗂️ Project Structure
+##  Project Structure
 
 ```
 upi-fraud-detection/
@@ -27,7 +27,7 @@ upi-fraud-detection/
 
 ---
 
-## ⚙️ Requirements
+##  Requirements
 
 - Python 3.7 or above
 - Streamlit library
@@ -127,8 +127,4 @@ This file is the front-end built with **Streamlit**:
 | Streamlit | Web application framework |
 | Regular Expressions (re) | Pattern detection in messages |
 
----
 
-## 👨‍💻 Author
-
-Developed as a college project focused on **Cyber Security Awareness** and **UPI Fraud Prevention** in India.

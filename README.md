@@ -1,77 +1,134 @@
-# UPI-Fraud-Detection-Awareness-System
-A Python-based web application that helps users identify potentially fraudulent UPI messages and links using keyword-based risk scoring.
+#  UPI Fraud Detection & Awareness System
 
-📌 Problem Statement
-UPI (Unified Payments Interface) scams are increasingly common in India. Users often receive fake payment requests, phishing links, and urgent messages designed to trick them into sharing OTPs or clicking malicious links. This tool helps everyday users quickly check whether a UPI message is safe before acting on it.
+A Python-based web application built using **Streamlit** that helps users detect suspicious UPI messages, payment links, and scam texts commonly found in India.
 
-💡 Features
+---
 
-Paste any UPI message or link and get an instant safety verdict
-Risk scoring system (0–100%) based on suspicious keyword detection
-Classifies messages as ✅ Safe, ⚠️ Medium Risk, or ⚠️ High Risk
-Shows the exact reasons why a message was flagged
-Built-in Safety Tips and Fraud Reporting information
+##  Project Overview
 
+UPI fraud is one of the most common cybercrimes in India. This project aims to create a simple and effective tool that:
 
-🛠️ Tech Stack
-ToolPurposePythonCore languageStreamlitWeb app frameworkCustom logicKeyword-based fraud detection
+- Analyzes UPI messages for suspicious patterns
+- Detects scam keywords, fake links, and urgent payment requests
+- Gives a risk score from 0% to 100%
+- Educates users with safety tips
+- Provides fraud reporting resources (Cybercrime Helpline: 1930)
 
-📁 Project Structure
-upi-fraud-detector/
-│
-├── app.py                # Streamlit frontend
-├── fraud_detection.py    # Fraud detection logic
-├── requirements.txt      # Python dependencies
-└── README.md             # Project documentation
+---
 
-⚙️ Setup & Installation
-1. Clone the Repository
-bashgit clone https://github.com/your-username/upi-fraud-detector.git
-cd upi-fraud-detector
-2. Install Dependencies
-Make sure you have Python 3.7+ installed, then run:
-bashpip install -r requirements.txt
-3. Run the App
-bashstreamlit run app.py
-The app will open in your browser at http://localhost:8501
+## 🗂️ Project Structure
 
-📦 requirements.txt
-streamlit
+```
+upi-fraud-detection/
+├── app.py               # Main Streamlit web application
+├── fraud_detection.py   # Core fraud detection logic
+└── README.md            # Project documentation
+```
 
-🚀 How to Use
+---
 
-Open the app in your browser
-Paste a UPI message or suspicious link into the text box
-Click the Check button
-View the result:
+## ⚙️ Requirements
 
-✅ Safe — No suspicious content found
-⚠️ Medium Risk — One suspicious keyword detected
-⚠️ High Risk - Possible Scam — Multiple suspicious keywords detected
+- Python 3.7 or above
+- Streamlit library
 
+---
 
-Read the flagged reasons and follow the Safety Tips
+##  How to Run
 
+### Step 1 — Install Python
+Make sure Python is installed on your system. You can check by running:
+```
+python --version
+```
 
-🧪 Example Test Cases
-MessageExpected ResultSending you 200 rupees for lunch✅ SafeClick link to claim your reward⚠️ High RiskUrgent UPI request pending⚠️ High RiskWin money now, free offer!⚠️ High Risk
+### Step 2 — Install Streamlit
+Open your terminal or command prompt and run:
+```
+pip install streamlit
+```
 
-🔍 How Detection Works
-The fraud_detection.py module scans messages for a list of known scam keywords:
-"win money", "click link", "urgent", "reward", "free", "upi request"
-Each match adds 20 points to a risk score:
+### Step 3 — Navigate to the Project Folder
+```
+cd path/to/upi-fraud-detection
+```
 
-Score ≥ 40 → High Risk
-Score > 0  → Medium Risk
-Score = 0  → Safe
+### Step 4 — Run the Application
+```
+streamlit run app.py
+```
 
+### Step 5 — Open in Browser
+After running the command, Streamlit will automatically open the app in your browser at:
+```
+http://localhost:8501
+```
 
-📞 Report Fraud
-If you receive a UPI scam:
+---
 
-📞 Call 1930 (National Cybercrime Helpline)
-🌐 Visit cybercrime.gov.in
+## How It Works
 
+The application is split into two files:
 
-👨‍💻 Author
-Made as part of a Python course project to address a real-world digital safety problem in India.
+### `fraud_detection.py`
+This file contains the `check_fraud(message)` function which:
+- Scans the input message for **scam keywords** like "win money", "urgent", "OTP", "KYC expired", etc.
+- Uses **Regular Expressions (regex)** to detect:
+  - Suspicious URLs and shortened links (e.g., bit.ly, tinyurl)
+  - UPI IDs embedded in messages
+  - Phone numbers
+- Flags **urgent payment requests** as a high-risk combo
+- Returns a **risk status**, **score (0–100%)**, and list of **reasons**
+
+### `app.py`
+This file is the front-end built with **Streamlit**:
+- Takes user input (UPI message or link)
+- Calls `check_fraud()` from `fraud_detection.py`
+- Displays the result with color-coded alerts (🚨Red / ⚠️ Yellow / ✅ Green)
+- Shows a visual risk score progress bar
+- Lists all flagged reasons
+- Provides safety tips and fraud reporting links
+
+---
+
+## 🧪 Sample Test Cases
+
+| Message | Expected Result |
+|---|---|
+| "Congratulations! You won Rs 50,000. Click bit.ly/claim now" |  High Risk |
+| "URGENT: Your account is blocked. Verify now via OTP" |  High Risk |
+| "You have a cashback reward waiting. Contact us." | Medium Risk |
+| "Please pay Rs 500 for dinner. My UPI is rahul@okicici" | Safe |
+
+---
+
+## Safety Tips Covered in the App
+
+- Never share your OTP with anyone
+- Avoid clicking unknown or shortened links
+- Always verify the sender before making a payment
+- Do not trust urgent or reward-based messages
+- Use only trusted UPI apps like BHIM, GPay, PhonePe, or Paytm
+
+---
+
+## Report Fraud
+
+- **Helpline:** Call **1930** (National Cyber Crime Helpline)
+- **Website:** [https://cybercrime.gov.in](https://cybercrime.gov.in)
+
+---
+
+## Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| Python | Core programming language |
+| Streamlit | Web application framework |
+| Regular Expressions (re) | Pattern detection in messages |
+
+---
+
+## 👨‍💻 Author
+
+Developed as a college project focused on **Cyber Security Awareness** and **UPI Fraud Prevention** in India.

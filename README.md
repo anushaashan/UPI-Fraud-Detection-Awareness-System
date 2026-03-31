@@ -84,14 +84,14 @@ This file contains the `check_fraud(message)` function which:
 This file is the front-end built with **Streamlit**:
 - Takes user input (UPI message or link)
 - Calls `check_fraud()` from `fraud_detection.py`
-- Displays the result with color-coded alerts (🚨Red / ⚠️ Yellow / ✅ Green)
+- Displays the result with color-coded alerts (Red / Yellow / Green)
 - Shows a visual risk score progress bar
 - Lists all flagged reasons
 - Provides safety tips and fraud reporting links
 
 ---
 
-## 🧪 Sample Test Cases
+## Sample Test Cases
 
 | Message | Expected Result |
 |---|---|

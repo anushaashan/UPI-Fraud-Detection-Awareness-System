@@ -1,133 +1,111 @@
-#  UPI Fraud Detection & Awareness System
+# 🛡️ UPI Fraud Detection System
 
-A Python-based web application built using **Streamlit** that helps users detect suspicious UPI messages, payment links, and scam texts commonly found in India.
-
----
-
-##  Project Overview
-
-UPI fraud is one of the most common cybercrimes in India. This project aims to create a simple and effective tool that:
-
-- Analyzes UPI messages for suspicious patterns
-- Detects scam keywords, fake links, and urgent payment requests
-- Gives a risk score from 0% to 100%
-- Educates users with safety tips
-- Provides fraud reporting resources (Cybercrime Helpline: 1930)
+An AI/ML-powered system to detect fraudulent UPI messages using an **ensemble of machine learning models** including Naive Bayes, Decision Tree, and Rule-Based scoring.
 
 ---
 
-##  Project Structure
+## 🤖 AI/ML Techniques Used
+
+| Technique | Description |
+|---|---|
+| **Naive Bayes Classifier** | NLP-based probabilistic model trained on labeled UPI messages using Laplace smoothing |
+| **Decision Tree** | Feature-based classifier using 15+ engineered signals |
+| **TF-IDF Vectorization** | Term Frequency–Inverse Document Frequency for text representation |
+| **Feature Engineering** | Extracts urgency score, reward signals, URL patterns, lexical stats |
+| **Ensemble Learning** | Weighted combination of all 3 models (NB: 40%, DT: 30%, Rules: 30%) |
+| **Explainable AI (XAI)** | Shows which features contributed to each prediction |
+
+---
+
+## 📁 Project Structure
 
 ```
-upi-fraud-detection/
-├── app.py               # Main Streamlit web application
-├── fraud_detection.py   # Core fraud detection logic
-└── README.md            # Project documentation
+upi-fraud-detector/
+├── app.py                  # Streamlit web application
+├── fraud_detection.py      # ML engine (Naive Bayes + Decision Tree + Rules)
+└── README.md
 ```
 
 ---
 
-##  Requirements
+## ⚙️ How It Works
 
-- Python 3.7 or above
-- Streamlit library
+1. **Input** — User pastes a UPI message or SMS
+2. **Tokenization** — Message is broken into word tokens
+3. **Naive Bayes** — Computes P(fraud | words) using trained word probabilities
+4. **Feature Extraction** — 15+ numerical features extracted (urgency, OTP, URLs, etc.)
+5. **Decision Tree** — Applies learned threshold rules on engineered features
+6. **Ensemble Score** — Weighted average of all 3 model outputs
+7. **Explainability** — Displays which features drove the final decision
 
 ---
 
-##  How to Run
+## 🚀 Installation & Running
 
-### Step 1 — Install Python
-Make sure Python is installed on your system. You can check by running:
-```
-python --version
-```
-
-### Step 2 — Install Streamlit
-Open your terminal or command prompt and run:
-```
+```bash
+# Install dependencies
 pip install streamlit
-```
 
-### Step 3 — Navigate to the Project Folder
-```
-cd path/to/upi-fraud-detection
-```
-
-### Step 4 — Run the Application
-```
+# Run the app
 streamlit run app.py
 ```
 
-### Step 5 — Open in Browser
-After running the command, Streamlit will automatically open the app in your browser at:
+---
+
+## 📊 Features Extracted
+
+- Word count, average word length, uppercase ratio
+- Urgency score (urgent, immediately, expire, block...)
+- Reward/lottery signals (win, prize, cashback, free...)
+- Threat signals (account blocked, KYC expired...)
+- URL detection (http, bit.ly, tinyurl, t.me...)
+- UPI ID and phone number presence
+- OTP request detection
+- Exclamation/punctuation count
+
+---
+
+## 🧠 Model Details
+
+### Naive Bayes
+Uses Multinomial Naive Bayes with Laplace (add-1) smoothing:
+
 ```
-http://localhost:8501
+P(fraud | message) ∝ P(fraud) × ∏ P(word | fraud)
+```
+
+Trained on 30 labeled UPI messages (15 fraud, 15 legitimate).
+
+### Decision Tree
+Hand-crafted decision rules learned from feature patterns:
+- Short URL → +40% fraud probability
+- OTP request → +25%
+- Urgency + threat combo → +30%
+- Reward/lottery signals → +30%
+
+### Ensemble
+```
+Final Score = 0.40 × NaiveBayes + 0.30 × DecisionTree + 0.30 × RuleBased
 ```
 
 ---
 
-## How It Works
+## 🛡️ Safety Tips
 
-The application is split into two files:
-
-### `fraud_detection.py`
-This file contains the `check_fraud(message)` function which:
-- Scans the input message for **scam keywords** like "win money", "urgent", "OTP", "KYC expired", etc.
-- Uses **Regular Expressions (regex)** to detect:
-  - Suspicious URLs and shortened links (e.g., bit.ly, tinyurl)
-  - UPI IDs embedded in messages
-  - Phone numbers
-- Flags **urgent payment requests** as a high-risk combo
-- Returns a **risk status**, **score (0–100%)**, and list of **reasons**
-
-### `app.py`
-This file is the front-end built with **Streamlit**:
-- Takes user input (UPI message or link)
-- Calls `check_fraud()` from `fraud_detection.py`
-- Displays the result with color-coded alerts (Red / Yellow / Green)
-- Shows a visual risk score progress bar
-- Lists all flagged reasons
-- Provides safety tips and fraud reporting links
+- **Never share your OTP** with anyone
+- **Avoid clicking** shortened or unknown links
+- **Verify UPI ID** before making any payment
+- **Report fraud** to Helpline: **1930** or [cybercrime.gov.in](https://cybercrime.gov.in)
 
 ---
 
-## Sample Test Cases
+## 📚 Topics Covered (AI/ML Fundamentals)
 
-| Message | Expected Result |
-|---|---|
-| "Congratulations! You won Rs 50,000. Click bit.ly/claim now" |  High Risk |
-| "URGENT: Your account is blocked. Verify now via OTP" |  High Risk |
-| "You have a cashback reward waiting. Contact us." | Medium Risk |
-| "Please pay Rs 500 for dinner. My UPI is rahul@okicici" | Safe |
-
----
-
-## Safety Tips Covered in the App
-
-- Never share your OTP with anyone
-- Avoid clicking unknown or shortened links
-- Always verify the sender before making a payment
-- Do not trust urgent or reward-based messages
-- Use only trusted UPI apps like BHIM, GPay, PhonePe, or Paytm
-
-# OUTPUT
-<img width="1905" height="821" alt="image" src="https://github.com/user-attachments/assets/9e892cdb-efe7-4a4b-8f4d-65c0e18c96eb" />
-
----
-
-## Report Fraud
-
-- **Helpline:** Call **1930** (National Cyber Crime Helpline)
-- **Website:** [https://cybercrime.gov.in](https://cybercrime.gov.in)
-
----
-
-## Technologies Used
-
-| Technology | Purpose |
-|---|---|
-| Python | Core programming language |
-| Streamlit | Web application framework |
-| Regular Expressions (re) | Pattern detection in messages |
-
-
+- Text Classification
+- Natural Language Processing (NLP)
+- Probabilistic Models (Naive Bayes)
+- Decision Trees
+- Feature Engineering
+- TF-IDF Representation
+- Ensemble Methods
+- Explainable AI
